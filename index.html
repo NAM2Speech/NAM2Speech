@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#712cf9">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <style>
+        
+    </style>
+
+</head>
+
+<body class="">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <div class="d-block p-3">
+        <div class="row p-5">
+            <h1 class="display-3 text-lg-center">
+                NAM2Speech: Towards improving NAM-to-speech synthesis intelligibility using self-supervision
+            </h1>
+        </div>
+        <div class="row p-2">
+
+        </div>
+        <div class="row">
+            <h3 class="">Abstract: </h4>
+        </div>
+        <div class="row p-1">
+
+        </div>
+        <div class="row">
+            <p class="fs-5">
+                In this paper, we propose a novel approach to enhance intelligibility in the Non-Audible Murmur (NAM)-to-speech conversion task, leveraging self-supervision and sequence-to-sequence learning techniques. Unlike conventional methods that explicitly record ground-truth speech, our methodology relies on self-supervision and speech-to-speech synthesis to simulate ground-truth speech. Despite utilizing simulated speech, our method surpasses the current state-of-the-art by an impressive 29.08% improvement in the Mel-Cepstral Distortion (MCD) metric. Additionally, we present error rates and demonstrate our model's proficiency in voice cloning. Moreover, we present a methodology for augmenting the existing CSTR NAM TIMIT Plus corpus, setting a benchmark with a Word Error Rate (WER) of 42.57% to gauge the intelligibility of synthesized speech.
+            </p>
+        </div>
+
+        <div class="row p-2"></div>
+        
+        <div class="row">
+            <h3> Proposed Architecture</h4>
+        </div>
+        <div class="row p-2"></div>
+        <div class="row">
+            <figure class="figure text-center" style="max-width: 90%; margin: 0 auto;">
+                <img src="resources/namteaser-Page-4.png" alt="..." class="figure-img" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                <figcaption class="figure-caption text-center">Overview of our proposed method: (A) Ground-truth speech simulation from available whisper speech, (B) Data augmentation using LJSpeech data and DTW algorithm to generate time-aligned data, and (C) sequence-to-sequence (Seq2Seq) learning framework to synthesize speech in novel voices for NAM-to-speech conversion task.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h3>Table of Contents</h3>
+
+    <ul>
+        <li><a href="#section1">Comparing samples on CSTR NAM TIMIT Plus dataset</a></li>
+        <li><a href="#section2">More samples from our proposed approach</a></li>
+        <li><a href="#section2">Simulated ground-truth speech for NAM vibrations from CSTR NAM TIMIT Plus dataset</a></li>
+    </ul>
+    Note : The samples for comparison are taken from demo's of previous work. Therefore they are not cherry-picked 
+    samples.
+
+    <div class="d-block p-3">
+        <div class="row">
+            <h3>Comparing speech converted with existing methods and NAM2Speech on CSTR NAM TIMIT Plus corpus</h3>
+        </div>
+
+        <div class="row d-flex table-responsive overflow-auto">
+            <table class="table table-bordered m-3">
+                <!-- <h5 class="text-center fs-4">Comparing samples for cross-lingual speech synthesis</h5> -->
+                <!-- <caption class="text-center fs-4">Comparing samples for cross-lingual speech synthesis</caption> -->
+                <thead>
+                    <tr class="flex-row">
+                        <th class="col-2 text-center">Text</th>
+                        <th class="col-1 text-center">Input NAM Vibrations</th>
+                        <th class="col-1 text-center">DiscoGAN</th>
+                        <th class="col-1 text-center">MSpec-Net</th>
+                        <th class="col-2 text-center">NAM2Speech (Novel voice 1)</th>
+                        <th class="col-2 text-center">NAM2Speech (Novel voice 2)</th>
+                        <th class="col-2 text-center">NAM2Speech (Novel voice 3)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="flex-row">
+                        <td>It's the whole season.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/405.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/discogan/discogan_405.mp3"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/mspecnet/mspec_405.mp3"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/405.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/ours_405_diffvoice1.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/ours_405_diffvoice2.wav"></audio>
+                        </td>
+                    </tr>
+                    <tr class="flex-row">
+                        <td>It is a terrible loss.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/401.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/discogan/discogan_401.mp3"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/mspecnet/mspec_401.mp3"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/401.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/ours_401_diffvoice1.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/ous_401_diffvoice2.wav"></audio>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row p-3"></div>
+        <div class="row">
+            <h3>More samples from our proposed methods on CSTR NAM TIMIT Plus corpus</h3>
+        </div>
+        <div class="row d-flex table-responsive overflow-auto">
+            <table class="table table-bordered m-3">
+                <thead>
+                    <tr class="flex-row">
+                        <th class="col-2 text-center">Text</th>
+                        <th class="col-1 text-center">Input NAM Vibrations</th>
+                        <th class="col-2 text-center">NAM2Speech</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="flex-row">
+                        <td>People have been wonderful beyond belief.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/112.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/112.wav"></audio>
+                        </td>
+                    </tr>
+                    <tr class="flex-row">
+                        <td>I think we're going to make it.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/192.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/192.wav"></audio>
+                        </td>
+                    </tr>
+                    <tr class="flex-row">
+                        <td>I didn't know where they were.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/193.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/193.wav"></audio>
+                        </td>
+                    </tr>
+                    <tr class="flex-row">
+                        <td>Like everything in scotland it takes time.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/208.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/208.wav"></audio>
+                        </td>
+                    </tr>
+                    <tr class="flex-row">
+                        <td>There was a battle their.</td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/nam/042.wav"></audio>
+                        </td>
+                        <td class="text-center">
+                            <audio controls src="resources/CSTR_demo_samples/paired/042.wav"></audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-block p-4">
+            <div class="row">
+                <h3>Simulated ground-truth on CSTR NAM TIMIT Plus corpus</h3>
+            </div>
+    
+            <div class="row d-flex table-responsive overflow-auto">
+                <table class="table table-bordered m-3">
+                    <thead>
+                        <tr class="flex-row">
+                            <th class="col-2 text-center">Text</th>
+                            <th class="col-1 text-center">Input NAM Vibrations</th>
+                            <th class="col-2 text-center">Simulated Ground-Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="flex-row">
+                            <td>Ask her to bring these things with her from the store.</td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/nam/002.wav"></audio>
+                            </td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/groundtruth/paired/002.wav"></audio>
+                            </td>
+                        </tr>
+                        <tr class="flex-row">
+                            <td>We also need a small plastic snake and a big toy frog for the kids.</td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/nam/004.wav"></audio>
+                            </td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/groundtruth/paired/004.wav"></audio>
+                            </td>
+                        </tr>
+                        <tr class="flex-row">
+                            <td>The rainbow is a division of white light into many beautiful colors.</td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/nam/007.wav"></audio>
+                            </td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/groundtruth/paired/007.wav"></audio>
+                            </td>
+                        </tr>
+                        <tr class="flex-row">
+                            <td>People look, but no one ever finds it.</td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/nam/010.wav"></audio>
+                            </td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/groundtruth/paired/010.wav"></audio>
+                            </td>
+                        </tr>
+                        <tr class="flex-row">
+                            <td>Throughout the centuries people have explained the rainbow in various ways.</td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/nam/012.wav"></audio>
+                            </td>
+                            <td class="text-center">
+                                <audio controls src="resources/CSTR_demo_samples/groundtruth/paired/012.wav"></audio>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>          
+    </div>
+</body>
+
+</html>
